@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business Performance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;padding:24px;color:#1f2937}
+.container{max-width:1200px;margin:auto}
+h1{margin-bottom:6px} .subtitle{color:#64748b;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}
+.card{background:white;padding:20px;border-radius:12px;box-shadow:0 2px 8px #0001}
+.label{font-size:13px;color:#64748b} .value{font-size:25px;font-weight:700;margin-top:8px}
+.panel{background:white;padding:20px;border-radius:12px;margin:18px 0;box-shadow:0 2px 8px #0001}
+canvas{max-height:380px}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}th{background:#f8fafc}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Business Performance Dashboard</h1>
+<p class="subtitle">Revenue, costs, profit, customer acquisition and churn — 2025 sample business data</p>
+
+<div class="grid">
+<div class="card"><div class="label">Total Revenue</div><div class="value">$857,242</div></div>
+<div class="card"><div class="label">Total Cost</div><div class="value">$498,675</div></div>
+<div class="card"><div class="label">Total Profit</div><div class="value">$358,566</div></div>
+<div class="card"><div class="label">New Customers</div><div class="value">3,051</div></div>
+</div>
+
+<div class="panel"><h2>Monthly Revenue, Cost & Profit</h2><canvas id="monthlyChart"></canvas></div>
+<div class="panel"><h2>Customer Acquisition & Churn</h2><canvas id="customerChart"></canvas></div>
+
+<div class="panel"><h2>Regional Performance</h2>
+<table><thead><tr><th>Region</th><th>Revenue</th><th>Cost</th><th>Profit</th><th>Customers</th></tr></thead>
+<tbody>
+<tr><td>East</td><td>$217,695</td><td>$124,738</td><td>$92,957</td><td>2,823</td></tr><tr><td>North</td><td>$212,956</td><td>$122,836</td><td>$90,120</td><td>2,649</td></tr><tr><td>South</td><td>$217,954</td><td>$125,243</td><td>$92,712</td><td>2,830</td></tr><tr><td>West</td><td>$208,636</td><td>$125,859</td><td>$82,778</td><td>2,634</td></tr>
+</tbody></table></div>
+</div>
+
+<script>
+const monthly = [{"Month": "Jan 2025", "Revenue": 85642.13, "Cost": 50476.7, "Profit": 35165.43, "New_Customers": 248, "Churned": 46}, {"Month": "Feb 2025", "Revenue": 65071.78, "Cost": 37809.18, "Profit": 27262.6, "New_Customers": 268, "Churned": 29}, {"Month": "Mar 2025", "Revenue": 79495.98, "Cost": 46352.14, "Profit": 33143.84, "New_Customers": 258, "Churned": 45}, {"Month": "Apr 2025", "Revenue": 71148.9, "Cost": 42385.41, "Profit": 28763.489999999998, "New_Customers": 267, "Churned": 34}, {"Month": "May 2025", "Revenue": 72566.77, "Cost": 42872.06, "Profit": 29694.71, "New_Customers": 253, "Churned": 40}, {"Month": "Jun 2025", "Revenue": 77137.42, "Cost": 43540.46, "Profit": 33596.96, "New_Customers": 281, "Churned": 40}, {"Month": "Jul 2025", "Revenue": 63205.869999999995, "Cost": 35045.29, "Profit": 28160.58, "New_Customers": 259, "Churned": 35}, {"Month": "Aug 2025", "Revenue": 56511.67, "Cost": 33698.18, "Profit": 22813.489999999998, "New_Customers": 215, "Churned": 28}, {"Month": "Sep 2025", "Revenue": 74140.09, "Cost": 41421.59, "Profit": 32718.5, "New_Customers": 291, "Churned": 42}, {"Month": "Oct 2025", "Revenue": 83073.0, "Cost": 48374.41, "Profit": 34698.59, "New_Customers": 263, "Churned": 37}, {"Month": "Nov 2025", "Revenue": 59344.26, "Cost": 34349.25, "Profit": 24995.010000000002, "New_Customers": 201, "Churned": 28}, {"Month": "Dec 2025", "Revenue": 69903.63, "Cost": 42350.75, "Profit": 27552.88, "New_Customers": 247, "Churned": 38}];
+new Chart(document.getElementById('monthlyChart'), {
+type:'line',
+data:{labels:monthly.map(x=>x.Month),datasets:[
+{label:'Revenue',data:monthly.map(x=>x.Revenue),tension:.3},
+{label:'Cost',data:monthly.map(x=>x.Cost),tension:.3},
+{label:'Profit',data:monthly.map(x=>x.Profit),tension:.3}
+]},
+options:{responsive:true,maintainAspectRatio:false}
+});
+new Chart(document.getElementById('customerChart'), {
+type:'bar',
+data:{labels:monthly.map(x=>x.Month),datasets:[
+{label:'New Customers',data:monthly.map(x=>x.New_Customers)},
+{label:'Churned Customers',data:monthly.map(x=>x.Churned)}
+]},
+options:{responsive:true,maintainAspectRatio:false}
+});
+</script>
+</body></html>
